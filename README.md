@@ -50,8 +50,11 @@ return [
 .
 ```
 ##### 三、验证器Validate
-`app\api\validate\BaseValidate` 和 `app\api\validate\IDMustBePositiveInt`
-* 1、自定义验证规则
+* 1、验证类的基类：`app\api\validate\BaseValidate` 
+
+* 2、继承基类创建新的验证类：`app\api\validate\IDMustBePositiveInt`
+
+* 3、自定义验证规则
 ```php
 protected function isPositiveInteger($value, $rule='', $data='', $field='')
 {
@@ -61,8 +64,42 @@ protected function isPositiveInteger($value, $rule='', $data='', $field='')
     return $field . '必须是正整数';
 }
 ```
-* 2、独立验证器的使用
+
+* 4、独立验证器的使用
 ```php
 $validate = new IDMustBePositiveInt();
 $validate->goCheck();
+```
+
+##### 四、AOP和全局异常处理
+
+* 1、自定义异常类的基类：`app\common\exception\BaseException`
+
+* 2、重写Handle的render方法，实现自定义异常消息：`app\common\exception\ExceptionHandler`
+
+* 3、修改默认的配置，`config\app.php`配置文件
+```php
+// 异常处理handle类 留空使用 \think\exception\Handle
+'exception_handle'       => '\app\common\exception\ExceptionHandler',
+```
+
+* 4、继承`BaseException`异常基类创建新的异常类
+```php
+/**
+ * Class ParameterException
+ * 通用参数类异常错误
+ */
+class ParameterException extends BaseException
+{
+    public $code = 0;
+    public $message = 'invalid parameters';
+    public $httpCode = 500;
+
+}
+```
+
+* 5、使用自定义异常
+```php
+// 抛出一个自定义异常
+throw new ParameterException('参数中包含有非法的参数名user_id或者uid');
 ```

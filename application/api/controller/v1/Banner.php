@@ -3,7 +3,7 @@
 namespace app\api\controller\v1;
 
 use app\api\validate\IDMustBePositiveInt;
-use app\common\exception\BaseException;
+use app\api\model\Banner as BannerModel;
 use think\Controller;
 use think\Request;
 
@@ -15,22 +15,25 @@ class Banner extends Controller
      *
      * @return \think\Response
      */
-    public function getBanner($id)
+    public function getBanner()
     {
         //
 //        echo $id;
 //        throw new BaseException("333", 100);
-        $validate = new IDMustBePositiveInt();
-        $validate->goCheck();
-//        $banner = BannerModel::getBannerById($id);
+//        $validate = new IDMustBePositiveInt();
+//        $validate->goCheck();
+
+        $banner = BannerModel::getBanners();
+
+//        var_dump($banner);
+
 //        if (!$banner ) {
 //            throw new MissException([
 //                'msg' => '请求banner不存在',
 //                'errorCode' => 40000
 //            ]);
 //        }
-//        return $banner;
-        echo $id;
+        return $banner;
     }
 
     /**

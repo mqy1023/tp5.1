@@ -4,11 +4,13 @@ namespace app\api\model;
 
 class Banner extends BaseModel
 {
-    public function items()
+    protected $hidden = ['delete_time', 'id', 'img_id', 'update_time'];
+
+    // 关联Image图片数据库
+    public function img()
     {
-        return $this->hasMany('BannerItem', 'banner_id', 'id');
+        return $this->belongsTo('Image', 'img_id', 'id');
     }
-    //
 
     /**
      * @param $id int banner所在位置
@@ -16,8 +18,7 @@ class Banner extends BaseModel
      */
     public static function getBanners()
     {
-        $banner = self::with(['items','items.img'])
-            ->find();
+        $banner = self::all([], 'img');
         return $banner;
     }
 }

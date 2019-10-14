@@ -19,7 +19,8 @@
  * @param int $httpCode http状态码
  * @return array
  */
-function show($code, $message, $data=[], $httpCode=200) {
+function show($code, $message, $data = [], $httpCode = 200)
+{
     $status = [
         'code' => $code,
         'message' => $message,
