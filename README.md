@@ -103,3 +103,14 @@ class ParameterException extends BaseException
 // 抛出一个自定义异常
 throw new ParameterException('参数中包含有非法的参数名user_id或者uid');
 ```
+
+#### 五、API版本管理
+
+* 1、控制器`controller`目录下创建版本目录，如`v1`、`v2`...
+* 2、路由加上版本信息：如：`Route::get('api/:version/banner', 'api/:version.Banner/getBanner');`
+
+#### 六、微信登录token
+* 1、配置`app_id`和`app_secret`和换取用户`openid及session_key`的url地址，查看`\config\wx.php`
+* 2、小程序前端调用 `wx.login()` 获取 临时登录凭证`code`
+* 3、code上传到服务端，换取 用户唯一标识 `OpenID` 和 会话密钥 `session_key`
+* 4、新用户的话添加一条`User`用户数据

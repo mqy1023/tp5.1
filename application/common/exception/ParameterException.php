@@ -16,6 +16,6 @@ class ParameterException extends BaseException
 {
     public $code = 0;
     public $message = 'invalid parameters';
-    public $httpCode = 500;
+    public $httpCode = 200;
 
 }

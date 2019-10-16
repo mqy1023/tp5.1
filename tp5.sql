@@ -20,19 +20,20 @@ CREATE TABLE `tp_image` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COMMENT='图片总表';
 
-
+DROP TABLE IF EXISTS `tp_user`;
 CREATE TABLE `tp_user` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `open_id` varchar(255) NOT NULL DEFAULT '' COMMENT '微信openid(唯一标示)',
-  `nick_name` varchar(255) NOT NULL DEFAULT '' COMMENT '微信昵称',
-  `avatar_url` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像',
+  `openid` varchar(255) NOT NULL DEFAULT '' COMMENT '微信openid(唯一标示)',
+  `nickname` varchar(255) NOT NULL DEFAULT '' COMMENT '微信昵称',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '微信头像链接',
   `gender` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '性别',
   `country` varchar(50) NOT NULL DEFAULT '' COMMENT '国家',
   `province` varchar(50) NOT NULL DEFAULT '' COMMENT '省份',
   `city` varchar(50) NOT NULL DEFAULT '' COMMENT '城市',
   `is_delete` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `delete_time` int(11) DEFAULT NULL,
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`user_id`),
-  KEY `openid` (`open_id`)
+  KEY `openid` (`openid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8 COMMENT='小程序用户表';

@@ -15,6 +15,10 @@ Route::get('think', function () {
 
 Route::get('api/:version/banner', 'api/:version.Banner/getBanner');
 
+//Token
+Route::post('api/:version/token/user', 'api/:version.Token/getToken');
+Route::post('api/:version/token/verify', 'api/:version.Token/verifyToken');
+
 return [
 
 ];

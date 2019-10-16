@@ -50,7 +50,7 @@ class ExceptionHandler extends Handle
         {
             $this->httpCode = $this->code = $e->getStatusCode();
         }
-        return show($this->code, $this->message, [], $this->httpCode);
+        return show($this->message, $this->code, [], $this->httpCode);
     }
     /**
      * 将异常写入日志

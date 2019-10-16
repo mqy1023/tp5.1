@@ -15,6 +15,7 @@ class BaseModel extends Model
 
     protected $hidden = ['delete_time'];
 
+    // 给类型为本地的图片加上图片前缀
     protected function prefixImgUrl($value, $data)
     {
         $finalUrl = $value;
