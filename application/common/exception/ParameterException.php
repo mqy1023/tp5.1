@@ -14,7 +14,7 @@ namespace app\common\exception;
  */
 class ParameterException extends BaseException
 {
-    public $code = 0;
+    public $code = 200;
     public $message = 'invalid parameters';
     public $httpCode = 200;
 

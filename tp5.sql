@@ -37,3 +37,24 @@ CREATE TABLE `tp_user` (
   PRIMARY KEY (`user_id`),
   KEY `openid` (`openid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8 COMMENT='小程序用户表';
+
+DROP TABLE IF EXISTS `tp_address`;
+-- ----------------------------
+-- 一个用户可以有多个地址
+-- ----------------------------
+CREATE TABLE `tp_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL COMMENT '收获人姓名',
+  `mobile` varchar(20) NOT NULL COMMENT '手机号',
+  `province` varchar(20) DEFAULT NULL COMMENT '省',
+  `city` varchar(20) DEFAULT NULL COMMENT '市',
+  `country` varchar(20) DEFAULT NULL COMMENT '区',
+  `detail` varchar(100) DEFAULT NULL COMMENT '详细地址',
+  `is_default` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0 非默认, 1为默认显示地址',
+  `user_id` int(11) NOT NULL COMMENT '外键',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COMMENT='用户地址表';

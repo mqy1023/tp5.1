@@ -100,6 +100,11 @@ function curl_get($url, &$httpCode = 0)
     return $file_contents;
 }
 
+/**
+ * 获取长度length的随机数
+ * @param $length
+ * @return null|string
+ */
 function getRandChar($length)
 {
     $str = null;

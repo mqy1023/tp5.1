@@ -112,5 +112,50 @@ throw new ParameterException('参数中包含有非法的参数名user_id或者u
 #### 六、微信登录token
 * 1、配置`app_id`和`app_secret`和换取用户`openid及session_key`的url地址，查看`\config\wx.php`
 * 2、小程序前端调用 `wx.login()` 获取 临时登录凭证`code`
-* 3、code上传到服务端，换取 用户唯一标识 `OpenID` 和 会话密钥 `session_key`
-* 4、新用户的话添加一条`User`用户数据
+* 3、code上传到服务端调用 `auth.code2Session` 接口，换取 用户唯一标识 `OpenID` 和 会话密钥 `session_key`
+* 4、随机数+时间戳+盐 md5加密生成token
+    ```php
+    // 生成令牌
+    public static function generateToken()
+    {
+        $randChar = getRandChar(32); // 获取32位长度的随机数
+        $timestamp = $_SERVER['REQUEST_TIME_FLOAT'];
+        $tokenSalt = config('setting.token_salt'); // 配置的盐
+        return md5($randChar . $timestamp . $tokenSalt);
+    }
+    ```
+* 5、将token作为key值，微信返回的openid相关作为value存到缓存中，并设置有效期
+```php
+// 写入缓存
+private function saveToCache($wxResult)
+{
+    $key = self::generateToken();
+    $value = json_encode($wxResult);
+    $expire_in = config('setting.token_expire_in'); // 有效期配置
+    $result = cache($key, $value, $expire_in);
+
+    if (!$result) {
+        throw new TokenException('服务器缓存异常', 500);
+    }
+    return $key;
+}
+```
+* 6、token作为返回值到前端，之前网络请求token值放在header头部带上
+* 7、上面获取openid时查询用户表数据是否有该openid的记录，没有则新增一条`User`用户数据
+
+#### 七、路由变量规则和分组
+```php
+// product
+//Route::get('api/:version/product/:id', 'api/:version.Product/getOne'); // 有误
+Route::get('api/:version/product/:id', 'api/:version.Product/getOne',[],['id'=>'\d+']);
+Route::get('api/:version/product/recent', 'api/:version.Product/getRecent');
+
+// 路由分组
+Route::group('api/:version/address',function(){
+    Route::get('', 'api/:version.Address/getUserAllAddress');
+    Route::post('', 'api/:version.Address/createOrUpdateAddress');
+    Route::get('/default', 'api/:version.Address/getUserDefaultAddress');
+    Route::delete(':aid', 'api/:version.Address/deleteAddress');
+});
+```
+限定getOne传入id为正整数，否则`api/:version/product/recent`路由调用的也是getOne方法

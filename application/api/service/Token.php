@@ -24,7 +24,7 @@ class Token
             ->header('token');
         $vars = Cache::get($token);
         if (!$vars) {
-            throw new TokenException();
+            throw new TokenException('Token已过期或无效Token');
         } else {
             if (!is_array($vars)) {
                 $vars = json_decode($vars, true);
