@@ -15,7 +15,7 @@ class BaseModel extends Model
     // 可以对比下SQL语句，看看whereOr的SQL
     use SoftDelete;
     protected $deleteTime = 'delete_time';
-    protected $defaultSoftDelete = 0;
+//    protected $defaultSoftDelete = 0;  // 不能使用，否则查询不出来数据
 
     protected $hidden = ['delete_time'];
 

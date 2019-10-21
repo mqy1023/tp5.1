@@ -49,10 +49,11 @@ class Address extends Controller
 
     public function getUserAllAddress()
     {
-        $user_id = TokenService::getCurrentUid();
-        if (!isset($user_id)) {
-            throw new ParameterException('用户不存在', 500);
-        }
+//        $user_id = TokenService::getCurrentUid();
+//        if (!isset($user_id)) {
+//            throw new ParameterException('用户不存在', 500);
+//        }
+        $user_id = 10002;
         $addressModel = new AddressModel();
         $allAddress = $addressModel->where('user_id', $user_id)->order('update_time desc')->all()->toArray();
         $data = [];
@@ -87,12 +88,14 @@ class Address extends Controller
         if (empty($user_id)) {
             throw new ParameterException('用户不存在', 500);
         }
+//        $user_id = 10002;
         $addressModel = new AddressModel();
-        $defaultAddress = $addressModel::where('user_id', $user_id)->where('id', $id)->delete();
-//        print_r($defaultAddress);die;
-//        if (empty($defaultAddress)) {
-//            return show('没有默认地址', 500);
-//        }
-        return show('删除成功', 200, $user_id.$id.$defaultAddress);
+        $addressData = $addressModel::where('user_id', $user_id)->where('id', $id)->findOrEmpty()->toArray();
+        if (empty($addressData)) {
+            throw new ParameterException('用户和地址对不上', 500);
+        } else {
+            AddressModel::destroy($id);
+        }
+        return show('删除成功', 200, $id);
     }
 }

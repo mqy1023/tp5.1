@@ -2,8 +2,10 @@
 
 namespace app\api\model;
 
-class Address extends BaseModel
+use think\Model;
+
+class Address extends Model
 {
 
-    protected $hidden = ['user_id', 'create_time', 'update_time', 'delete_time'];
+    protected $hidden = [ 'user_id', 'create_time', 'update_time', 'delete_time'];
 }

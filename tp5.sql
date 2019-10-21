@@ -58,3 +58,16 @@ CREATE TABLE `tp_address` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COMMENT='用户地址表';
+
+CREATE TABLE `tp_category` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品分类id',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `description` varchar(100) DEFAULT NULL COMMENT '类目描述',
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类id',
+  `image_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '外键，关联image表的id',
+  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序方式(数字越小越靠前)',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
