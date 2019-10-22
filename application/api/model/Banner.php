@@ -6,12 +6,6 @@ class Banner extends BaseModel
 {
     protected $hidden = ['delete_time', 'id', 'img_id', 'update_time'];
 
-    // 关联Image模型
-    public function img()
-    {
-        return $this->belongsTo('Image', 'img_id', 'id');
-    }
-
     /**
      * @param $id int banner所在位置
      * @return Banner

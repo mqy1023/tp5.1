@@ -64,7 +64,7 @@ CREATE TABLE `tp_category` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '分类名称',
   `description` varchar(100) DEFAULT NULL COMMENT '类目描述',
   `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类id',
-  `image_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '外键，关联image表的id',
+  `img_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '外键，关联image表的id',
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序方式(数字越小越靠前)',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',

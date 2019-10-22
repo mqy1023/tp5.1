@@ -19,6 +19,12 @@ class BaseModel extends Model
 
     protected $hidden = ['delete_time'];
 
+    // 关联Image模型
+    public function img()
+    {
+        return $this->belongsTo('Image', 'img_id', 'id');
+    }
+
     // 给类型为本地的图片加上图片前缀
     protected function prefixImgUrl($value, $data)
     {

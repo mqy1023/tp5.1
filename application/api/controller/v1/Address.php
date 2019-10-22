@@ -53,7 +53,7 @@ class Address extends Controller
 //        if (!isset($user_id)) {
 //            throw new ParameterException('用户不存在', 500);
 //        }
-        $user_id = 10002;
+        $user_id = 10001;
         $addressModel = new AddressModel();
         $allAddress = $addressModel->where('user_id', $user_id)->order('update_time desc')->all()->toArray();
         $data = [];

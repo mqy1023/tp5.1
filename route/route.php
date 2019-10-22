@@ -32,6 +32,9 @@ Route::group('api/:version/address',function(){
     Route::delete(':id', 'api/:version.Address/deleteAddress');
 });
 
+Route::get('api/:version/category', 'api/:version.Category/getCategory');
+
+
 
 return [
 
