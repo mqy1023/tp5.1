@@ -71,3 +71,59 @@ CREATE TABLE `tp_category` (
   `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品分类表';
+
+CREATE TABLE `tp_goods` (
+  `goods_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `goods_name` varchar(255) NOT NULL DEFAULT '' COMMENT '商品名称',
+  `selling_point`  varchar(500) NOT NULL DEFAULT '' COMMENT '商品卖点',
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品分类id',
+  `spec_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '商品规格(1单规格 2多规格)',
+  `deduct_stock_type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '库存计算方式(1下单减库存 2付款减库存)',
+  `content` longtext NOT NULL COMMENT '商品详情',
+  `sales_initial` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '初始销量',
+  `sales_actual` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '实际销量',
+  `goods_sort` int(11) unsigned NOT NULL DEFAULT '100' COMMENT '商品排序(数字越小越靠前)',
+  `goods_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '商品状态(1上架 2下架)',
+  `is_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除(0未删除 1删除)',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`goods_id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品记录表';
+
+CREATE TABLE `tp_goods_image` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `img_id` int(11) NOT NULL COMMENT '图片id(关联文件记录表)',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品图片记录表';
+
+CREATE TABLE `tp_goods_sku` (
+  `goods_sku_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品规格id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `spec_sku_id` varchar(255) NOT NULL DEFAULT '0' COMMENT '商品sku记录索引 (由规格id组成)',
+  `img_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '规格图片id',
+  `goods_no` varchar(100) NOT NULL DEFAULT '' COMMENT '商品编码',
+  `goods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '商品价格',
+  `line_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '商品划线价',
+  `stock_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '当前库存数量',
+  `goods_sales` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品销量',
+  `goods_weight` double unsigned NOT NULL DEFAULT '0' COMMENT '商品重量(Kg)',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`goods_sku_id`),
+  UNIQUE KEY `sku_idx` (`goods_id`,`spec_sku_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品规格表';
+
+
+CREATE TABLE `tp_goods_spec_rel` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `spec_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '规格组id',
+  `spec_value_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '规格值id',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8 COMMENT='商品与规格值关系记录表';
+

@@ -11,7 +11,7 @@ namespace app\api\controller\v1;
 
 use think\Controller;
 
-class Product extends Controller
+class Goods extends Controller
 {
     public function getRecent()
     {
