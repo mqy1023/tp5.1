@@ -45,7 +45,7 @@ class UserToken extends Token
             // 为什么以empty判断是否错误，这是根据微信返回
             // 规则摸索出来的
             // 这种情况通常是由于传入不合法的code
-            throw new TokenException('获取session_key及openID时异常，微信内部错误');
+            throw new TokenException(['message' => '获取session_key及openID时异常，微信内部错误']);
         } else {
             // 建议用明确的变量来表示是否成功
             // 微信服务器并不会将错误标记为400，无论成功还是失败都标记成200
@@ -71,7 +71,7 @@ class UserToken extends Token
     // 需要认真思考
     private function processLoginError($wxResult)
     {
-        throw new TokenException($wxResult['errmsg'], $wxResult['errcode']);
+        throw new TokenException(['message' => $wxResult['errmsg'], 'code' => $wxResult['errcode']]);
     }
 
     // 写入缓存
@@ -83,7 +83,7 @@ class UserToken extends Token
         $result = cache($key, $value, $expire_in);
 
         if (!$result) {
-            throw new TokenException('服务器缓存异常', 500);
+            throw new TokenException(['message' => '服务器缓存异常']);
         }
         return $key;
     }

@@ -5,3 +5,4 @@
 .DS_Store
 thinkphp
 config/wx.php
+.env

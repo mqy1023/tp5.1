@@ -8,7 +8,7 @@ namespace app\common\exception;
  */
 class SuccessMessage extends BaseException
 {
-    public $code = 201;
+    public $code = 200;
     public $message = 'ok';
     public $httpCode = 200;
 }

@@ -159,3 +159,8 @@ Route::group('api/:version/address',function(){
 });
 ```
 限定getOne传入id为正整数，否则`api/:version/product/recent`路由调用的也是getOne方法
+
+
+#### 参考
+
+1、用户、权限及权限分配 (https://github.com/yuan-dian/originThink)

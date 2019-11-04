@@ -2,89 +2,55 @@
 
 namespace app\api\controller\v1;
 
-use app\api\validate\IDMustBePositiveInt;
+use app\common\exception\SuccessMessage;
 use app\api\model\Category as CategoryModel;
 use think\Controller;
-use think\Request;
 
 class Category extends Controller
 {
     /**
-     * 获取Category列表
+     * 获取Category树状列表
      * @url /category
      *
      * @return \think\Response
      */
-    public function getCategory()
+    public function getCategoryTree()
     {
-        $banner = CategoryModel::getALL();
+        $banner = CategoryModel::getALL()['tree'];
 
         return show('成功', 200, $banner);
     }
 
     /**
-     * 显示创建资源表单页.
+     * 获取Category所有列表
+     * @url /category
      *
      * @return \think\Response
      */
-    public function create()
+    public function getCategoryAll()
     {
-        //
+        $banner = CategoryModel::getALL()['all'];
+
+        return show('成功', 200, $banner);
     }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
+    public function createOrUpdateCategory()
     {
-        //
-    }
+        $arrays = input('post.');
 
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+//        $user_id = TokenService::getCurrentUid();
+//        if (!$user_id) {
+//            throw new ParameterException([ 'message' => '用户不存在' ]);
+//        }
+        $category = new CategoryModel;
 
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if (!empty($arrays['id'])) { // 更新
+            $category->save($arrays, ['id' => $arrays['id']]);
+        } else {
+            $category->save($arrays);
+        }
 
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
+        return new SuccessMessage();
     }
 }

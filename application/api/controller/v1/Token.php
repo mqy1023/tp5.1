@@ -30,7 +30,7 @@ class Token
     public function verifyToken($token='')
     {
         if(!$token){
-            throw new TokenException('token不允许为空');
+            throw new TokenException(['message' => 'token不允许为空']);
         }
         $valid = TokenService::verifyToken($token);
         return [

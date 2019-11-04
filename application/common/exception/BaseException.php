@@ -21,9 +21,18 @@ class BaseException extends Exception
     public $message = 'invalid parameters';
     public $httpCode = 200;
 
-    public function __construct($message = '', $code = 500, $httpCode = 200) {
-        $this->message = $message;
-        $this->code = $code;
-        $this->httpCode = $httpCode;
+    public function __construct($params=[]) {
+        if(!is_array($params)){
+            return;
+        }
+        if(array_key_exists('code',$params)){
+            $this->code = $params['code'];
+        }
+        if(array_key_exists('message',$params)){
+            $this->message = $params['message'];
+        }
+        if(array_key_exists('httpCode',$params)){
+            $this->httpCode = $params['httpCode'];
+        }
     }
 }

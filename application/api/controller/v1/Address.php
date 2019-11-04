@@ -26,7 +26,7 @@ class Address extends Controller
         // user_id 不能从前端传入，而是解析token出来的
         if (array_key_exists('user_id', $arrays) | array_key_exists('uid', $arrays)) {
             // 不允许包含user_id或者uid，防止恶意覆盖user_id外键
-            throw new ParameterException('参数中包含有非法的参数名user_id或者uid');
+            throw new ParameterException([ 'message' => '参数中包含有非法的参数名user_id或者uid']);
         }
 
         $validate = new AddressNew();
@@ -34,7 +34,7 @@ class Address extends Controller
 
         $user_id = TokenService::getCurrentUid();
         if (!$user_id) {
-            throw new ParameterException('用户不存在', 500);
+            throw new ParameterException([ 'message' => '用户不存在' ]);
         }
         $address = new AddressModel;
         $arrays['user_id'] = $user_id; // 通过token查询缓存得到user_id
@@ -51,7 +51,7 @@ class Address extends Controller
     {
 //        $user_id = TokenService::getCurrentUid();
 //        if (!isset($user_id)) {
-//            throw new ParameterException('用户不存在', 500);
+//            throw new ParameterException([ 'message' => '用户不存在' ]);
 //        }
         $user_id = 10001;
         $addressModel = new AddressModel();
@@ -71,7 +71,7 @@ class Address extends Controller
     {
         $user_id = TokenService::getCurrentUid();
         if (!isset($user_id)) {
-            throw new ParameterException('用户不存在', 500);
+            throw new ParameterException([ 'message' => '用户不存在']);
         }
         $addressModel = new AddressModel();
         $defaultAddress = $addressModel::where('user_id', $user_id)->where('is_default', 1)->find();
@@ -86,13 +86,13 @@ class Address extends Controller
     {
         $user_id = TokenService::getCurrentUid();
         if (empty($user_id)) {
-            throw new ParameterException('用户不存在', 500);
+            throw new ParameterException([ 'message' => '用户不存在']);
         }
 //        $user_id = 10002;
         $addressModel = new AddressModel();
         $addressData = $addressModel::where('user_id', $user_id)->where('id', $id)->findOrEmpty()->toArray();
         if (empty($addressData)) {
-            throw new ParameterException('用户和地址对不上', 500);
+            throw new ParameterException([ 'message' => '用户和地址对不上']);
         } else {
             AddressModel::destroy($id);
         }
