@@ -19,7 +19,7 @@
 
 ###### 三、操作
 
-* 1、用户(`tp_auth_admin`)表
+* 1、管理用户(`tp_auth_admin`)表
 
 | uid | user | name | password |
 | :---: | :---: | :----: | :----: |

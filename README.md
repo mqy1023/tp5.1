@@ -160,6 +160,16 @@ Route::group('api/:version/address',function(){
 ```
 限定getOne传入id为正整数，否则`api/:version/product/recent`路由调用的也是getOne方法
 
+#### 八、验证码：
+
+* 1、安装think-captcha扩展包
+
+`composer require topthink/think-captcha=2.*`
+
+* 2、配置验证码开启状态：应用配置目录captcha.php文件
+
+`'is_open' => true`
+
 
 #### 参考
 
