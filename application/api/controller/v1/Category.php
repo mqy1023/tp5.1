@@ -18,7 +18,7 @@ class Category extends Controller
     {
         $banner = CategoryModel::getALL()['tree'];
 
-        return show('成功', 200, $banner);
+        return showReturn('成功', 200, $banner);
     }
 
     /**
@@ -31,7 +31,7 @@ class Category extends Controller
     {
         $banner = CategoryModel::getALL()['all'];
 
-        return show('成功', 200, $banner);
+        return showReturn('成功', 200, $banner);
     }
 
 

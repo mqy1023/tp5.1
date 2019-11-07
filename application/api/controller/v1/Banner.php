@@ -33,7 +33,7 @@ class Banner extends Controller
 //                'errorCode' => 40000
 //            ]);
 //        }
-        return show('成功', 200, $banner);
+        return showReturn('成功', 200, $banner);
     }
 
     /**

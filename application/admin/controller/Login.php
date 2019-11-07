@@ -3,7 +3,7 @@
 namespace app\admin\controller;
 
 use think\Controller;
-use app\admin\service\UserService;
+use app\admin\service\AuthAdminService;
 use app\admin\model\AuthAdmin as AuthAdminModel;
 use think\captcha\Captcha;
 
@@ -27,7 +27,7 @@ class Login extends Controller
                 return $this->fetch();
             } else {
                 $data = input();
-                $result = UserService::login($data);
+                $result = AuthAdminService::login($data);
                 return $result;
             }
         }
@@ -37,7 +37,6 @@ class Login extends Controller
     /**
      * 用户退出
      * @return array
-     * @author 原点 <467490186@qq.com>
      */
     public function logout()
     {

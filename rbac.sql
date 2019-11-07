@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.35)
 # Database: tp51
-# Generation Time: 2019-11-05 10:13:20 +0000
+# Generation Time: 2019-11-07 10:45:22 +0000
 # ************************************************************
 
 
@@ -47,8 +47,8 @@ LOCK TABLES `tp_auth_admin` WRITE;
 
 INSERT INTO `tp_auth_admin` (`uid`, `user`, `name`, `head`, `password`, `login_count`, `last_login_ip`, `last_login_time`, `status`, `updatapassword`, `create_time`, `update_time`)
 VALUES
-	(1,'admin','admin',NULL,'$2y$10$HLh4UHoluqLvwsNN6vQxz.tuKMA5xYp6rH2vOpA.74sxiQbjwm2My',87,'127.0.0.1',1536480810,1,1,0,1536480810),
-	(2,'admin1','admin1',NULL,'$2y$10$HLh4UHoluqLvwsNN6vQxz.tuKMA5xYp6rH2vOpA.74sxiQbjwm2My',13,'127.0.0.1',1535891091,1,1,0,1535891091);
+	(1,'admin','admin',NULL,'$2y$10$HLh4UHoluqLvwsNN6vQxz.tuKMA5xYp6rH2vOpA.74sxiQbjwm2My',95,'::1',1573117251,1,1,0,1573117251),
+	(2,'admin1','admin1',NULL,'$2y$10$HLh4UHoluqLvwsNN6vQxz.tuKMA5xYp6rH2vOpA.74sxiQbjwm2My',14,'::1',1573117228,1,1,0,1573117228);
 
 /*!40000 ALTER TABLE `tp_auth_admin` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -75,7 +75,7 @@ LOCK TABLES `tp_auth_group` WRITE;
 INSERT INTO `tp_auth_group` (`id`, `title`, `status`, `rules`, `create_time`, `update_time`)
 VALUES
 	(1,'管理员组',1,'1,2,3,4,5,6,8,9,10',0,1494407780),
-	(2,'普通用户组',1,'1,2,3,4,10,13,14,18,19',0,1494308736);
+	(2,'普通用户组',1,'1,6,7,8',0,1494308736);
 
 /*!40000 ALTER TABLE `tp_auth_group` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -131,9 +131,9 @@ LOCK TABLES `tp_auth_rule` WRITE;
 INSERT INTO `tp_auth_rule` (`id`, `name`, `title`, `pid`, `status`, `condition`, `menu`, `icon`, `sort`)
 VALUES
 	(1,'#','首页',0,1,'',1,'layui-icon layui-icon-home',1),
-	(2,'#','用户管理',0,1,'',1,'layui-icon layui-icon-user',1),
-	(3,'admin/userList','用户列表',2,1,'',1,NULL,1),
-	(4,'admin/groupList','用户组列表',2,1,'',1,NULL,1),
+	(2,'#','管理用户管理',0,1,'',1,'layui-icon layui-icon-user',1),
+	(3,'admin/userList','管理用户列表',2,1,'',1,NULL,1),
+	(4,'admin/groupList','管理用户组列表',2,1,'',1,NULL,1),
 	(5,'admin/edit','添加用户',2,1,'',0,'',1),
 	(6,'#','系统管理',0,1,'',1,'layui-icon layui-icon-set',1),
 	(7,'admin/cleanCache','清除缓存',6,1,'',1,'',1),
@@ -149,14 +149,15 @@ VALUES
 	(17,'admin/ruleList','规则列表',2,1,'',0,'',1),
 	(18,'admin/editRule','修改规则',2,1,'',0,'',1);
 
-
 /*!40000 ALTER TABLE `tp_auth_rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
--- ----------------------------
---  站点配置数据库
--- ----------------------------
+
+# Dump of table tp_config
+# ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `tp_config`;
+
 CREATE TABLE `tp_config` (
   `id` int(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(64) NOT NULL COMMENT '配置字段名',
@@ -166,12 +167,25 @@ CREATE TABLE `tp_config` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  登录日志数据库
--- ----------------------------
+LOCK TABLES `tp_config` WRITE;
+/*!40000 ALTER TABLE `tp_config` DISABLE KEYS */;
+
+INSERT INTO `tp_config` (`id`, `name`, `title`, `value`, `status`, `create_time`, `update_time`)
+VALUES
+	(1,'system_config','系统配置','{\"debug\": \"1\", \"trace\": \"0\", \"trace_type\": \"0\"}',0,1523414007,1531729547),
+	(2,'site_config','站点配置','{\"title\":\"thinkphp51\",\"name\":\"thinkphp51\",\"copyright\":\"copyright @2019 qymagic\",\"icp\":\"粤ICP备18016905号-1\"}',1,1523414007,1573118200);
+
+/*!40000 ALTER TABLE `tp_config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table tp_login_log
+# ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `tp_login_log`;
+
 CREATE TABLE `tp_login_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `uid` int(11) unsigned NOT NULL COMMENT '用户id',
@@ -182,7 +196,24 @@ CREATE TABLE `tp_login_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `tp_config` VALUES ('1','system_config','系统配置','{\"debug\": \"0\", \"trace\": \"0\", \"trace_type\": \"0\"}','0','1523414007','1531729547'), ('2','site_config','站点配置','{\"name\": \"originThink\", \"title\": \"originThink\", \"copyright\": \"copyright @2018 originThink\",\"icp\": \"苏ICP备0000000号\"}','1','1523414007','1536478335');
+LOCK TABLES `tp_login_log` WRITE;
+/*!40000 ALTER TABLE `tp_login_log` DISABLE KEYS */;
+
+INSERT INTO `tp_login_log` (`id`, `uid`, `user`, `name`, `last_login_ip`, `create_time`)
+VALUES
+	(1,1,'admin','admin','::1',1573031642),
+	(2,1,'admin','admin','::1',1573040757),
+	(3,1,'admin','admin','::1',1573041477),
+	(4,1,'admin','admin','::1',1573054969),
+	(5,1,'admin','admin','::1',1573107351),
+	(6,1,'admin','admin','::1',1573113867),
+	(7,1,'admin','admin','::1',1573114703),
+	(8,2,'admin1','admin1','::1',1573117228),
+	(9,1,'admin','admin','::1',1573117251);
+
+/*!40000 ALTER TABLE `tp_login_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

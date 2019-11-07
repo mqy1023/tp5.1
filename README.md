@@ -170,6 +170,11 @@ Route::group('api/:version/address',function(){
 
 `'is_open' => true`
 
+#### 九、用户、权限及权限分配
+
+[查看admin模块源码， 用户、权限组及权限的分配rbac](./用户、权限组及权限的分配rbac.md)
+
+ ![](./public/images/tp51.png) 
 
 #### 参考
 

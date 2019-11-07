@@ -15,12 +15,12 @@ class Goods extends Controller
 {
     public function getRecent()
     {
-        return show('getRecent', 200);
+        return showReturn('getRecent', 200);
     }
 
     public function getOne($id)
     {
-        return show('getOne' . $id, 200);
+        return showReturn('getOne' . $id, 200);
     }
 
 }

@@ -27,7 +27,7 @@ class AuthAdmin extends Validate
     }
 
     /**
-     * 对应的验证块在UserService中
+     * 对应的验证块在AuthAdminService中
      * $validate = validate('AuthAdmin');
      * if(config('captcha.is_open')){
      *      $validate->scene('captcha');

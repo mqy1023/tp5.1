@@ -24,7 +24,7 @@ class Token
         (new TokenGet())->goCheck();
         $wx = new UserToken($code);
         $token = $wx->get();
-        return show('成功获取token', 200, $token);
+        return showReturn('成功获取token', 200, $token);
     }
 
     public function verifyToken($token='')

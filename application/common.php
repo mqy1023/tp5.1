@@ -11,6 +11,12 @@
 
 // 应用公共文件
 
+
+use think\exception\HttpResponseException;
+
+
+
+
 /**
  * 通用化API接口数据输出
  * @param int $code 业务状态码
@@ -19,7 +25,7 @@
  * @param int $httpCode http状态码
  * @return array
  */
-function show($message, $code, $data = [], $httpCode = 200)
+function showReturn($message, $code, $data = [], $httpCode = 200)
 {
     $status = [
         'code' => $code,
@@ -30,6 +36,29 @@ function show($message, $code, $data = [], $httpCode = 200)
         'data' => $data,
     ];
     return json($data, $httpCode);
+}
+
+
+/**
+ * json 数据输出
+ * @param $data          data数据
+ * @param int $code      code
+ * @param string $msg    提示信息
+ * @param array $param   额外参数
+ * @param $httpCode      http状态码
+ */
+function show($data, $code = 1, $msg = '', $param = [], $httpCode = 200)
+{
+    $json = [
+        'code' => $code,
+        'msg' => $msg,
+        'data' => $data,
+    ];
+    if ($param) {
+        $json = array_merge($json, $param);
+    }
+    $response = json($json, $httpCode);
+    throw new HttpResponseException($response);
 }
 
 /**

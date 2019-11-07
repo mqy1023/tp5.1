@@ -64,7 +64,7 @@ class Address extends Controller
                 $data[] = $oneAddress;
             }
         }
-        return show('获取成功', 200, $data);
+        return showReturn('获取成功', 200, $data);
     }
 
     public function getUserDefaultAddress()
@@ -77,9 +77,9 @@ class Address extends Controller
         $defaultAddress = $addressModel::where('user_id', $user_id)->where('is_default', 1)->find();
 //        print_r($defaultAddress);die;
         if (empty($defaultAddress)) {
-            return show('没有默认地址', 500);
+            return showReturn('没有默认地址', 500);
         }
-        return show('获取成功', 200, $defaultAddress);
+        return showReturn('获取成功', 200, $defaultAddress);
     }
 
     public function deleteAddress($id)
@@ -96,6 +96,6 @@ class Address extends Controller
         } else {
             AddressModel::destroy($id);
         }
-        return show('删除成功', 200, $id);
+        return showReturn('删除成功', 200, $id);
     }
 }

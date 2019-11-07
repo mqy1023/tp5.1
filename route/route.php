@@ -46,9 +46,9 @@ Route::group('api/:version/category', function () {
  */
 Route::group('admin', [
     'login$'=>'admin/Login/login',                                         //登录
-    'editPassword'=>'admin/User/editPassword',                             //重置密码
+    'editPassword'=>'admin/AdminUser/editPassword',                             //重置密码
     'logout$'=>'admin/Login/logout',                                       //退出
-    'check$'=>'admin/User/check',                                          //验证用户是否存在
+    'check$'=>'admin/AdminUser/check',                                          //验证用户是否存在
     'unlock'=>'admin/Login/unlock',                                        //验证用户是否存在
     'verify'=>'admin/Login/verify',                                        //获取验证码
 ])->ext('html');
@@ -64,15 +64,15 @@ Route::group('admin', [
     'home'=>'admin/Index/home',                                              //系统信息
 
     //用户管理
-    'userList$'=>'admin/User/userList',                                      //用户列表
-    'userInfo$'=>'admin/User/userInfo',                                      //用户信息
-    'edit$'=>'admin/User/edit',                                              //添加/编辑用户
-    'delete$'=>'admin/User/delete',                                          //删除用户
-    'groupList$'=>'admin/User/groupList',                                    //用户组列表
-    'editGroup$'=>'admin/User/editGroup',                                    //添加编辑用户组
-    'disableGroup$'=>'admin/User/disableGroup',                              //禁用用户组
-    'ruleList$'=>'admin/User/ruleList',                                      //用户组规则列表
-    'editRule$'=>'admin/User/editRule',                                      //修改用户组规则
+    'userList$'=>'admin/AdminUser/userList',                                      //用户列表
+    'userInfo$'=>'admin/AdminUser/userInfo',                                      //用户信息
+    'edit$'=>'admin/AdminUser/edit',                                              //添加/编辑用户
+    'delete$'=>'admin/AdminUser/delete',                                          //删除用户
+    'groupList$'=>'admin/AdminUser/groupList',                                    //用户组列表
+    'editGroup$'=>'admin/AdminUser/editGroup',                                    //添加编辑用户组
+    'disableGroup$'=>'admin/AdminUser/disableGroup',                              //禁用用户组
+    'ruleList$'=>'admin/AdminUser/ruleList',                                      //用户组规则列表
+    'editRule$'=>'admin/AdminUser/editRule',                                      //修改用户组规则
 
     //系统管理
     'cleanCache$'=>'admin/System/cleanCache',                                //清除缓存

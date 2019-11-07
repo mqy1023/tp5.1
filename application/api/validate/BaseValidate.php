@@ -3,7 +3,6 @@
 namespace app\api\validate;
 
 use app\common\exception\ParameterException;
-use think\Request;
 use think\Validate;
 
 /**

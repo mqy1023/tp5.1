@@ -8,7 +8,6 @@
 
 namespace app\admin\traits;
 
-
 use think\facade\Request;
 
 trait Result

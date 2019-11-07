@@ -11,7 +11,6 @@ class Index extends Common
     /**
      * 首页
      * @return mixed
-     * @author 原点 <467490186@qq.com>
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
@@ -34,7 +33,6 @@ class Index extends Common
     /**
      * layui 首页
      * @return mixed
-     * @author 原点 <467490186@qq.com>
      */
     public function home()
     {
